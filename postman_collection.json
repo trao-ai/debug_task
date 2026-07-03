@@ -1,0 +1,121 @@
+{
+  "info": {
+    "name": "Task Manager API",
+    "description": "Requests for every endpoint of the Task Manager API. Set baseUrl if your server runs on a different port.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "List all tasks",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/tasks"
+      }
+    },
+    {
+      "name": "Get task by id",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/tasks/1"
+      }
+    },
+    {
+      "name": "Create task",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/tasks",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"My new task\",\n  \"status\": \"pending\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Update task status",
+      "request": {
+        "method": "PUT",
+        "url": "{{baseUrl}}/tasks/2",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"done\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Update task title",
+      "request": {
+        "method": "PUT",
+        "url": "{{baseUrl}}/tasks/3",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Renamed task\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Delete task",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/tasks/3"
+      }
+    },
+    {
+      "name": "Search tasks by status (done)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/tasks/search?status=done",
+          "host": ["{{baseUrl}}"],
+          "path": ["tasks", "search"],
+          "query": [
+            {
+              "key": "status",
+              "value": "done"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Search tasks by status (pending)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/tasks/search?status=pending",
+          "host": ["{{baseUrl}}"],
+          "path": ["tasks", "search"],
+          "query": [
+            {
+              "key": "status",
+              "value": "pending"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

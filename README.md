@@ -36,3 +36,20 @@ The server listens on port 3000 by default (override with the `PORT` environment
 ```
 
 Valid statuses are `pending` and `done`. The store is seeded with three tasks on startup.
+
+## Testing the API
+
+Import [`postman_collection.json`](postman_collection.json) into Postman (or any compatible client) for ready-made requests covering every endpoint.
+
+Prefer the terminal? Equivalent curl commands:
+
+```bash
+curl http://localhost:3000/tasks
+curl http://localhost:3000/tasks/1
+curl -X POST http://localhost:3000/tasks -H 'Content-Type: application/json' -d '{"title":"My new task"}'
+curl -X PUT http://localhost:3000/tasks/2 -H 'Content-Type: application/json' -d '{"status":"done"}'
+curl -X DELETE http://localhost:3000/tasks/3
+curl "http://localhost:3000/tasks/search?status=done"
+```
+
+Tip: add `-i` to any curl command to see the response status code and headers.
