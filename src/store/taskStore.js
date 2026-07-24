@@ -7,7 +7,7 @@ const tasks = [
 let nextId = 4;
 
 export function getAll() {
-  return tasks;
+  return tasks.map((task) => ({ ...task }));
 }
 
 export async function insert(data) {

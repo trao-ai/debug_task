@@ -32,9 +32,11 @@ This is the bug report as filed by QA. Symptoms are listed in the order they wer
 1. **The server won't start at all.** `npm start` exits immediately with an error. (There may be more than one thing preventing startup — keep going until it boots.)
 2. **Fetching any single task fails.** `GET /tasks/1` returns `404 Task not found`, even though task 1 is clearly visible in `GET /tasks`.
 3. **Creating a task returns a success status but an empty body.** `POST /tasks` responds `201` with `{}` instead of the created task. The task does show up in the list a moment later, though.
-4. **Status updates don't stick.** Sending `PUT /tasks/2` with `{"status": "done"}` returns 200, but the task is still `pending`. Even stranger: renaming a task seems to mess up its status.
-5. **Deleting a task that doesn't exist "succeeds" — and breaks something else.** `DELETE /tasks/999` returns 204, and afterwards one of the real tasks has vanished from the list.
-6. **Search returns exactly the wrong tasks.** `GET /tasks/search?status=done` returns the pending tasks, and vice versa. No error, just the opposite of what was asked for.
+4. **Blank tasks are slipping in.** `POST /tasks` with an empty title (`""`) is accepted with a 201 — QA expected the usual `400 title is required` validation error, which still fires correctly when title is missing entirely.
+5. **Status updates don't stick.** Sending `PUT /tasks/2` with `{"status": "done"}` returns 200, but the task is still `pending`. Even stranger: renaming a task seems to mess up its status.
+6. **No edit survives a refetch.** Even when a `PUT` response comes back showing changed values, fetching `GET /tasks` right after shows the old data — as if the update was never saved.
+7. **Deleting a task that doesn't exist "succeeds" — and breaks something else.** `DELETE /tasks/999` returns 204, and afterwards one of the real tasks has vanished from the list.
+8. **Search returns exactly the wrong tasks.** `GET /tasks/search?status=done` returns the pending tasks, and vice versa. No error, just the opposite of what was asked for.
 
 ## What we're looking for
 
