@@ -4,6 +4,10 @@ import { setTimeout as delay } from 'node:timers/promises';
 const PORT = 4100 + Math.floor(Math.random() * 400);
 const BASE = `http://localhost:${PORT}`;
 const TOTAL = 9;
+const NONCE = Math.random().toString(36).slice(2, 8);
+const CREATE_TITLE = `Progress check ${NONCE}`;
+const RENAME_TITLE = `Renamed ${NONCE}`;
+const MISSING_ID = 9000 + Math.floor(Math.random() * 1000);
 const results = [];
 
 function record(ok) {
@@ -72,8 +76,8 @@ async function runtimeChecks() {
 
   {
     const before = await listCount();
-    const { status, body } = await send('POST', '/tasks', { title: 'Progress check task' });
-    const returned = status === 201 && body !== null && body.title === 'Progress check task' && body.id !== undefined;
+    const { status, body } = await send('POST', '/tasks', { title: CREATE_TITLE });
+    const returned = status === 201 && body !== null && body.title === CREATE_TITLE && body.id !== undefined;
     const inList = returned && (await getJson('/tasks')).body.some((t) => t.id === body.id);
     const after = await listCount();
     record(returned && inList && after === before + 1);
@@ -92,12 +96,12 @@ async function runtimeChecks() {
   let titleUpdate = null;
   {
     statusUpdate = await send('PUT', '/tasks/2', { status: 'done' });
-    titleUpdate = await send('PUT', '/tasks/3', { title: 'Renamed by check' });
+    titleUpdate = await send('PUT', '/tasks/3', { title: RENAME_TITLE });
     record(
       statusUpdate.status === 200 &&
         statusUpdate.body?.status === 'done' &&
         statusUpdate.body?.title === 'Write API documentation' &&
-        titleUpdate.body?.title === 'Renamed by check' &&
+        titleUpdate.body?.title === RENAME_TITLE &&
         titleUpdate.body?.status === 'pending'
     );
   }
@@ -118,7 +122,7 @@ async function runtimeChecks() {
 
   {
     const before = await listCount();
-    const { status } = await send('DELETE', '/tasks/9999');
+    const { status } = await send('DELETE', `/tasks/${MISSING_ID}`);
     const after = await listCount();
     record(status === 404 && after === before);
   }
