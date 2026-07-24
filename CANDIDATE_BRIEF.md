@@ -44,4 +44,6 @@ This is the bug report as filed by QA. Symptoms are listed in the order they wer
 - Verify each fix by actually hitting the endpoint, not just by reading the code.
 - Small, targeted fixes. The structure of the app is fine — the bugs are in the details.
 
+**Progress tracking:** run `npm run check` at any time to see how many of the 9 problems you've fixed (e.g. `4/9 fixed — 5 to go`). It only gives you the count — never which ones, what's wrong, or where. The symptoms above are your map.
+
 Good luck!

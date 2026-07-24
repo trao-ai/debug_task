@@ -11,6 +11,14 @@ npm start
 
 For auto-restart on file changes during development, use `npm run dev` instead.
 
+## Checking your progress
+
+```bash
+npm run check
+```
+
+Prints your progress, e.g. `4/9 fixed — 5 to go.` Run it as often as you like.
+
 The server listens on port 3000 by default (override with the `PORT` environment variable).
 
 ## Endpoints
