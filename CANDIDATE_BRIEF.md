@@ -4,7 +4,7 @@
 
 You've just joined a team that owns a small Task Manager REST API. A batch of changes was merged right before the previous developer left, and the app is now broken in several ways. Your job is to get it back to the expected behavior described below.
 
-You have **1 hour**. Fix the existing code in place — do not rewrite the project from scratch, swap frameworks, or add new features. You're encouraged to test as you go (curl, Postman, a browser — whatever you prefer) and to think out loud while you work.
+You have **90 minutes**. Fix the existing code in place — do not rewrite the project from scratch, swap frameworks, or add new features. You're encouraged to test as you go (curl, Postman, a browser — whatever you prefer) and to think out loud while you work.
 
 ## Expected behavior
 
